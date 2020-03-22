@@ -13,7 +13,7 @@ export default class Restaurante {
      * @param {string} telefono | Teléfono del restaurante
      * @param {string} direccion |Dirección del restaurante
      */
-    constructor(nombre, telefono, direccion) {
+    constructor({ nombre, telefono, direccion }) {
         this._nombre = nombre;
         this._telefono = telefono;
         this._direccion = direccion;
@@ -31,25 +31,60 @@ export default class Restaurante {
         });
     }
 
-    registrarPedido(pedido) {
-        this._pedidos.push(pedido);
-    }
-
     listarPedidos() {
         this._pedidos.forEach((pedido, i) => {
             console.log(`${i} - ${pedido.getResumen()}`)
         })
     }
 
-    buscarPedido() {
+    buscarIndice(pedido) {
+        let resultado = this._pedidos.find(p => p.esIgualA(pedido));
 
+        return resultado;
     }
 
-    eliminarPedido() {
+    buscarPedido(pedido) {
+        let resultado = undefined;
 
+        this._pedidos.forEach(p => {
+            if (p.esIgualA(pedido)) {
+                resultado = p;
+            }
+        });
+
+        return resultado;
     }
 
-    modificarPedido() {
+    registrarPedido(pedido) {
+        if (this.buscarPedido(pedido) === undefined) {
+            this._pedidos.push(pedido);
+            return true;
+        }
+        return false;
+    }
 
+    eliminarPedido(pedido) {
+        var indice = -1;
+        this._pedidos.forEach((p, i) => {
+            if (pedido._numeroPedido === p._numeroPedido) {
+                indice = i;
+            }
+        });
+        if (indice < 0) {
+            return false;
+        }
+        this._pedidos.splice(indice, 1);
+        return true;
+    }
+
+    modificarPedido(pedido, nuevoPedido) {
+        let index = this.buscarPedido(pedido);
+
+        if (index < 0) {
+            return flase;
+        }
+
+        this._pedidos.splice(index, 1, nuevoPedido);
+        return true;
     }
 }

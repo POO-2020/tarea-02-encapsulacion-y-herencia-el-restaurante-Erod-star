@@ -25,6 +25,17 @@ export default class Pedido {
     return `${this._numeroPedido}, ${this._fecha.getFecha()} ${this._hora.getFormato12()} - ${this.getNumeroElementos()} elementos con ${this.getProductos()} productos - total: ${this.getCostoTotal()}  `
   }
 
+  getNumeroPedido() {
+    return this._numeroPedido;
+  }
+
+  esIgualA(pedido) {
+    if (pedido.getNumeroPedido() === this._numeroPedido) {
+      return true;
+    }
+    return false;
+  }
+
   getNumeroElementos() {
     return this._elementosPedidos.length
   }
@@ -44,7 +55,8 @@ export default class Pedido {
       x = (elemento._cantidad * elemento._producto._precio._valor) + x
     });
 
-    return new Precio(x).getPrecio();
+    let z = new Precio(x)
+    return z.getPrecio();
   }
 
 
