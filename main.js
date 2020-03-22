@@ -6,6 +6,7 @@ import Direccion from "./direccion.js";
 import ElementoPedido from "./elemento_pedido.js";
 import Producto from "./producto.js";
 import Precio from "./precio.js";
+import ClienteFrecuente from "./cliente_frecuente.js";
 
 export default class Main {
     constructor() {
@@ -27,6 +28,27 @@ export default class Main {
         }
 
         this._pedido1 = new Pedido(datosPedido1);
+
+        let datosClienteFrecuente = {
+            numeroCliente: 124,
+            fechaRegistro: new Fecha(12, 3, 2020),
+            nombre: 'Edson Saitama',
+            direccion: new Direccion(
+                'Vía Lactea',
+                24,
+                'Lomas del Cielo',
+                38958,
+                'Colima',
+                'Villa de Alvarez'
+            ),
+            telefono: 3121145555
+        }
+
+        this._clienteFrecuente1 = new ClienteFrecuente(datosClienteFrecuente);
+    }
+
+    testClienteFrecuente() {
+        console.log(this._clienteFrecuente1.getPerfil());
     }
 
     agregarElementoPedido() {
@@ -43,5 +65,4 @@ export default class Main {
 }
 
 let app = new Main();
-app.agregarElementoPedido();
-app.testPedido();
+app.testClienteFrecuente();
